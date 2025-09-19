@@ -1,6 +1,9 @@
 name: CI Pipeline
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # or your deployment branch
 
 jobs:
   build:
@@ -9,7 +12,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Example: install dependencies if needed
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Validate all HTML files
         uses: Cyb3r-Jak3/html5validator-action@v8.0.0
         with:
           root: .
+
+      - name: Deploy site
+        if: ${{ success() }}   # only run if previous steps succeeded
+        run: |
+          echo "Deploying site..."
+          # Add your deployment commands here
