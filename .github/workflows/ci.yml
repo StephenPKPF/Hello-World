@@ -21,23 +21,4 @@ jobs:
         uses: Cyb3r-Jak3/html5validator-action@v8.0.0
         with:
           root: .
-          ignore_warnings: true
-      - name: Prepare deployment folder
-        run: |
-          mkdir -p public
-          find . -name "*.html" -exec cp --parents {} public/ \;
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-
-      - name: Deploy to GitHub Pages
-        if: ${{ success() }}
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
-          user_name: github-actions
-          user_email: github-actions@github.com
+         
