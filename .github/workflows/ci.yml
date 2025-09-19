@@ -9,29 +9,29 @@ jobs:
   validate-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # 2️⃣ Install Java (required for HTML validator)
       - name: Install Java
         run: sudo apt-get update && sudo apt-get install -y default-jre
 
-      # 3️⃣ Validate HTML files
       - name: Validate all HTML files
         uses: Cyb3r-Jak3/html5validator-action@v8.0.0
         with:
           root: .
           ignore_warnings: true
-      # 4️⃣ Prepare deployment folder
       - name: Prepare deployment folder
         run: |
           mkdir -p public
           find . -name "*.html" -exec cp --parents {} public/ \;
 
-      # 5️⃣ Deploy to GitHub Pages
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
       - name: Deploy to GitHub Pages
         if: ${{ success() }}
         uses: peaceiris/actions-gh-pages@v4
