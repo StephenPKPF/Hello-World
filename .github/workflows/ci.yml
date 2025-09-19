@@ -9,5 +9,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Validate HTML
+      - name: Validate all HTML files
         uses: Cyb3r-Jak3/html5validator-action@v8.0.0
+        with:
+          root: .
