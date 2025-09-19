@@ -1,13 +1,13 @@
 name: CI Pipeline
 
 on: [push]
-Jobs:
-Build:
-runs-on: ubuntu-latest
-steps:
--name: Checkout code
-uses: actions/checkout@3
 
--name: validate HTML
-uses:
-Cyb3r-Jak3/html5validator-action@v0.4.0
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Validate HTML
+        uses: Cyb3r-Jak3/html5validator-action@v0.4.0
