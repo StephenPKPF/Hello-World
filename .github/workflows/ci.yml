@@ -5,9 +5,13 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write  # Required for pushing to gh-pages
+
 jobs:
   validate-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,19 +23,9 @@ jobs:
         with:
           root: .
 
-      - name: Set up Node.js (if you are using a static site generator like Jekyll, Hugo, or a frontend framework)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Build site (optional, depends on your site)
-        run: |
-          # If you have a build step, run it here
-          # e.g., npm install && npm run build
-          echo "No build step defined, skipping"
-
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4.0.0
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./       # the directory to publish, adjust if your site builds to ./dist or ./_site
+          publish_dir: ./       # root folder of your HTML files
+          publish_branch: gh-pages
